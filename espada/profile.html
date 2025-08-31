@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #1e40af, #2563eb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1rem;
+      margin: 0;
+    }
+    #profile-container {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      width: 100%;
+      max-width: 35rem;
+    }
+    h1, h2 { color: #1e40af; margin-bottom: 1rem; }
+    .section { margin-bottom: 1.5rem; }
+    .label { font-weight: 600; color: #374151; display: block; margin-bottom: 0.5rem; }
+    .input {
+      width: 100%; padding: 0.5rem 1rem;
+      border: 1px solid #d1d5db; border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .button {
+      background-color: #1e40af; color: white;
+      padding: 0.75rem; border-radius: 0.5rem;
+      font-weight: 600; cursor: pointer; border: none;
+    }
+    .button:hover { background-color: #1a3672; }
+    .profile-photo {
+      width: 120px; height: 120px;
+      border-radius: 50%; object-fit: cover;
+      margin-bottom: 1rem;
+    }
+    .center { text-align: center; }
+    .upload-btn {
+      background-color: #2563eb;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      border: none;
+    }
+    .upload-btn:hover { background-color: #1a3672; }
+    #upload-photo { display: none; }
+  </style>
+</head>
+<body>
+  <div id="profile-container">
+    <div class="center">
+      <img id="profile-photo" class="profile-photo" src="https://via.placeholder.com/120" alt="Profile Photo">
+      <br>
+      <button id="add-photo-btn" class="upload-btn">Add Profile Picture</button>
+      <input type="file" id="upload-photo" accept="image/*">
+    </div>
+
+    <h1>User Profile</h1>
+
+    <!-- Personal Info -->
+    <div class="section">
+      <h2>Personal Information</h2>
+      <label class="label">Name</label>
+      <input type="text" id="name" class="input">
+
+      <label class="label">Email</label>
+      <input type="email" id="email" class="input" disabled>
+
+      <label class="label">Age</label>
+      <input type="number" id="age" class="input">
+
+      <label class="label">Gender</label>
+      <input type="text" id="sex" class="input">
+    </div>
+
+    <!-- Education Background -->
+    <div class="section">
+      <h2>Education Background</h2>
+      <textarea id="education" class="input" rows="3" placeholder="E.g., B.Tech in AI & ML, 2025"></textarea>
+    </div>
+
+    <!-- Job Interests -->
+    <div class="section">
+      <h2>Job Interests</h2>
+      <textarea id="job-interests" class="input" rows="3" placeholder="E.g., AI Engineer, Data Scientist"></textarea>
+    </div>
+
+    <!-- Skills -->
+    <div class="section">
+      <h2>Skills</h2>
+      <textarea id="skills" class="input" rows="3" placeholder="E.g., Python, TensorFlow, React"></textarea>
+    </div>
+
+    <button class="button" id="save-btn">Save Profile</button>
+  </div>
+
+  <script>
+    // ✅ Load user info from signup (via localStorage for persistence)
+    const user = JSON.parse(localStorage.getItem("userProfile")) || {};
+
+    document.getElementById("name").value = user.name || "";
+    document.getElementById("email").value = user.email || "";
+    document.getElementById("age").value = user.age || "";
+    document.getElementById("sex").value = user.sex || "";
+    document.getElementById("education").value = user.education || "";
+    document.getElementById("job-interests").value = user.jobInterests || "";
+    document.getElementById("skills").value = user.skills || "";
+
+    // ✅ Profile photo upload
+    const uploadInput = document.getElementById("upload-photo");
+    const addPhotoBtn = document.getElementById("add-photo-btn");
+    const profilePhoto = document.getElementById("profile-photo");
+
+    addPhotoBtn.addEventListener("click", () => uploadInput.click());
+
+    uploadInput.addEventListener("change", function() {
+      const file = this.files[0];
+      if(file){
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          profilePhoto.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // ✅ Save profile
+    document.getElementById("save-btn").addEventListener("click", () => {
+      const updatedUser = {
+        ...user,
+        name: document.getElementById("name").value,
+        age: document.getElementById("age").value,
+        sex: document.getElementById("sex").value,
+        education: document.getElementById("education").value,
+        jobInterests: document.getElementById("job-interests").value,
+        skills: document.getElementById("skills").value
+      };
+
+      localStorage.setItem("userProfile", JSON.stringify(updatedUser));
+      alert("Profile updated successfully!");
+      window.location.href = "http://localhost:8501";
+    });
+  </script>
+</body>
+</html>

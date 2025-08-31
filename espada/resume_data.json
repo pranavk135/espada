@@ -1,0 +1,40 @@
+{
+    "name": "A S Chirag",
+    "email": "chirag7bravo@gmail.com",
+    "phone": "9538299414",
+    "skills": [
+        "Python",
+        "Machine Learning",
+        "C",
+        "C++",
+        "Java",
+        "HTML",
+        "CSS"
+    ],
+    "work_experience": {
+        "experience_1": {
+            "company": "Google ",
+            "role": "CEO",
+            "start": "25-07-2021",
+            "end": "Present"
+        },
+        "experience_2": {
+            "company": "Microsoft",
+            "role": "CEO",
+            "start": "23-08-2019",
+            "end": "20-07-2021"
+        },
+        "experience_3": {
+            "company": "",
+            "role": "",
+            "start": "",
+            "end": ""
+        }
+    },
+    "projects": {
+        "project_1": {
+            "title": "Resume Optimizer & Job Finder",
+            "description": "It was developed in a Startup Hackathon. It is a web application which creates Resume from details which is ATS Friendly and also Optimizes the Resume."
+        }
+    }
+}
